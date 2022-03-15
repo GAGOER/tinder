@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <!-------Boutton de setting------->
+      <!-- Ici on a fait un enssembles de bouttons, d'ou le "s". -->
+      <ion-buttons slot="start" >
+        <!-- "fil=clear" car on veut que ce soit que l'icon qui soit colorier. -->
+        <ion-button fill="clear" color="medium">
+          <!-- le "slot="icon-only"" c'est pour dire que je ne veut que ce boutton. -->
+          <!-- le "name="settings-sharp"" c est pour le nom de l icon sur ionicon -->
+          <ion-icon slot="icon-only" name="settings-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+    <!-------Logo tinder------->
+    <ion-title >
+      <img class="logo" src="../../assets/tinder-logo.png">
+    </ion-title>
+
+    <!-------Boutton de chatt------->
+        <!-- Ici on a fait un enssembles de bouttons, d'ou le "s". -->
+        <ion-buttons slot="end">
+          <!-- "fil=clear" car on veut que ce soit que l'icon qui soit colorier. -->
+          <ion-button fill="clear" color="medium">
+            <!-- le "slot="icon-only"" c'est pour dire que je ne veut que ce boutton. -->
+            <!-- le "name="settings-sharp"" c est pour le nom de l icon sur ionicon -->
+            <ion-icon slot="icon-only" name="chatbubbles-sharp"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content >
+  <!--On va faire cette effet pile que l on retrouve sur tinder-->
+  <div class="card_bg_box">
+    <div class="card_bg_1">
+      <!--"*ngFor="let result of results"" pour aller parcourir notre tableau-->
+      <ion-item *ngFor="let result of results">
+        <ion-label>{{result}}</ion-label>
+      </ion-item>
+    </div>
+    <div class="card_bg_2"></div>
+  </div>
+  
+
+  <!-- Pour afficher les information de notre tableau -->
+  <sw-card-wrapper #cardWrapper>
+      <!-- Ici on va parcourir notre tableau avatar, a chaque personnalité *
+        * que l on va encontrer on va renvoyer l objet avatar -->
+
+      <!-- On va maintenant ajouter, mettre deux attributs, deux classes pour 
+        rendre les classes invissibles ou visibles -->
+
+      <!-- le "swSwipeable" permet de swiper notre carte, contient un enssemble de directive cree
+         par le gars qui a fait le swip  -->
+
+      <!-- "[orientation]="'x'" est pour l'orientation sur les cotés" -->
+
+      <!-- "(swiped)="swiped($event, inde)"" a ete modifier car il y a une autre evenements qui 
+        a ete cree par la personne qui a fait ce package, c est un evenement qui s execute une 
+        fois que l'on swipe. On va lui transmetre 2 paramettre, le premier c est le resultat 
+        du swipe (ce sera une reponse positive ou negative (true ou false)), et on va egallement 
+        transmettre l'index de notre cart. On doit declarer cette fonction et pour ça on va aller 
+        dans "home.page.ts"  -->
+
+      <!--  -->
+    <div class="card" *ngFor="let avatar of avatars, let index = index"
+      [class.visible]="avatar.visible" [class.hidden]="!avatar.visible"
+      swSwipeable
+      [width]="350"
+      [height]="500"
+      [orientation]="'x'"
+      (swiped)="swiped($event, index)">
+    <!-- On fait ici en sort que s affiche l image de la personnalité -->
+    <img [src]="avatar.image">
+    <!-- Et ici que s affiche sont nom et sont age -->
+    <h2>{{avatar.name}}, {{avatar.age}}</h2>
+    </div>
+  </sw-card-wrapper>
+
+
+  <div class="button_box">
+
+    <!-- on lui a donner des bords arrondis, on lui a donner un mode "ios" *
+    * ainsi elle aura cette forme sous android comme sur iphon et on lui a donner un fond claire avec le bord qui a des couleurs -->
+    <ion-button class="small_button" shape="round" mode="ios" fill="outline">
+      <ion-icon color="warning" name="refresh"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="swipeleft()" class="large_button" shape="round" mode="ios" fill="outline">
+      <ion-icon color="danger" name="close"></ion-icon>
+    </ion-button>
+
+    <!-- C'est pour rajouter de l espace entre les 2 grands bouttons -->
+    <div class="space"></div>
+
+    <ion-button (click)="swipeleft()" class="large_button" shape="round" mode="ios" fill="outline">
+      <ion-icon color="success" name="heart"></ion-icon>
+    </ion-button>
+
+    <ion-button class="small_button" shape="round" mode="ios" fill="outline">
+      <ion-icon color="primary" name="location-sharp"></ion-icon>
+    </ion-button>
+
+  </div>
+
+
+</ion-content>
